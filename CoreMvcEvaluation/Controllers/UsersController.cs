@@ -30,13 +30,14 @@ namespace CoreMvcEvaluation.Controllers
             {
                 return StatusCode((int)HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            //User user = db.Users.Find(id);
+            User user = svcUser.getUser((int)id);
             if (user == null)
             {
                 return StatusCode((int)HttpStatusCode.NotFound);
             }
             UserViewModel vm = new UserViewModel(user);
-            return PartialView("Details",vm);
+            return PartialView("Details", vm);
         }
 
         // GET: Users/Create
@@ -47,21 +48,7 @@ namespace CoreMvcEvaluation.Controllers
             return View(vm);
         }
 
-        // GET: Users/Details/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return StatusCode((int)HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return StatusCode((int)HttpStatusCode.NotFound);
-            }
-            UserViewModel vm = new UserViewModel(user);
-            return View("Create", vm);
-        }
+
 
         // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -70,13 +57,18 @@ namespace CoreMvcEvaluation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UserViewModel vm)
         {
-            if (!ModelState.IsValid) return View(vm);
-            if (svcUser.emailExists(vm.Email))
+
+            if (!ModelState.IsValid)
+                return View("Create", vm);
+
+            // Checking the input email whether it exists with other account or not
+            if (svcUser.emailExists(vm.Id, vm.Email))
             {
                 ModelState["Email"].Errors.Add("A user with this email address already exists");
                 return View(vm);
             }
-            User u= new Models.User();
+
+            User u = new Models.User();
             u.Email = vm.Email;
             u.FirstName = vm.FirstName;
             u.LastName = vm.LastName;
@@ -84,14 +76,37 @@ namespace CoreMvcEvaluation.Controllers
             u.EmpType = db.EmployeeTypes.Find(int.Parse(vm.EmpTypeSelected));
             u.CompanyName = vm.CompanyName;
             u.IsActive = vm.IsActive;
-            u.CreatedBy = -1;
-            u.CreatedDate = DateTime.UtcNow;
             
-            db.Users.Add(u);
+            if (vm.Id == 0)
+            {
+                u.CreatedBy = -1;
+                u.CreatedDate = DateTime.UtcNow;
+                db.Users.Add(u);
+            } else
+            {
+                u.Id = vm.Id;
+                db.Users.Update(u);
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
+        // PUT: Users/Details/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return StatusCode((int)HttpStatusCode.BadRequest);
+            }
+            //User user = svcUser.getUser((int)id);
+            User user = svcUser.getUser((int)id);
+            if (user == null)
+            {
+                return StatusCode((int)HttpStatusCode.NotFound);
+            }
+            UserViewModel vm = new UserViewModel(user);
+            return View("Create", vm);
+        }
 
         // GET: Users/Delete/5
         public ActionResult Delete(int? id)

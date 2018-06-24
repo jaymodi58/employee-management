@@ -3,21 +3,26 @@
     ViewBag.Title = "Create";
 }
 
+@*If the if is not 0 then make it edit page*@
 @if (Model.Id != 0)
 {
     <h2>Edit User</h2>
 }
+// otherwise it is create page
 else
 {
     <h2>Create User</h2>
 }
 <hr />
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Users", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
+
+    @Html.HiddenFor(model => model.Id)
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -79,7 +84,7 @@ else
     <div class="form-group">
         @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <div class="checkbox">
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.IsActive)
                 @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
             </div>

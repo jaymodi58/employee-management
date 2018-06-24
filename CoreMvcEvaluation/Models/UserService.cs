@@ -37,12 +37,24 @@ namespace CoreMvcEvaluation.Models
             return user.Id;
         }
 
+        /*
         public bool emailExists(string Email)
         {
             User user = new User();
             TestContext db = new TestContext(options);
             user = db.Users.Include(u => u.EmpType).Where(u => u.Email.ToUpper() == Email.ToUpper()).FirstOrDefault();
             if (user == null) return false;
+            return true;
+        }
+        */
+
+        public bool emailExists(int Id, string Email)
+        {
+            User user = new User();
+            TestContext db = new TestContext(options);
+            user = db.Users.Include(u => u.EmpType).Where(u => u.Email.ToUpper() == Email.ToUpper() &&  u.Id != Id).FirstOrDefault();
+            if (user == null)
+                return false;
             return true;
         }
 
