@@ -6,7 +6,7 @@
 <div>
 
     <dl class="dl-horizontal">
-        <dt>
+        <dt >
             @Html.DisplayNameFor(model => model.Email)
         </dt>
 
@@ -53,7 +53,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IsActive)
+            @if (Model.IsActive)
+            {
+                <span>Yes</span>
+            }
+            else
+            {
+                <span>No</span>
+            }
+            @*@Html.DisplayFor(model => model.IsActive)*@
         </dd>
 
         <dt>

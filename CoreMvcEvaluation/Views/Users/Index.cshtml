@@ -11,56 +11,58 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            Diplay Name
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastLogin)
-        </th>
-        <th>
 
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="table-responsive">
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @item.getDisplayNameLastFirst()
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompanyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastLogin)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) | 
-                <a href="javascript:void(0);" class="userDetails" data-id="@item.Id">Details</a> | 
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                Diplay Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastLogin)
+            </th>
+            <th>
+
+            </th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @item.getDisplayNameLastFirst()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastLogin)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    <a href="javascript:void(0);" class="userDetails" data-id="@item.Id">Details</a> |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
 
+    </table>
+</div>
 
 
 <!-- Modal -->
@@ -93,7 +95,7 @@
         var URL = '/Users/Details/';
         $(function () {
             $(".userDetails").click(function () {
-                
+
                 var $buttonClicked = $(this);
                 var id = $buttonClicked.attr('data-id');
                 var options = { "backdrop": "static", keyboard: true };
