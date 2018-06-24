@@ -21,7 +21,7 @@ else
 
 <div class="form-horizontal">
 
-    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Id, new { id = "UserId"})
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -64,12 +64,19 @@ else
         </div>
     </div>
     <script>
+
         var dd = document.getElementById("EmpTypeSelected");
         var o = document.createElement("option");
         o.text = "-- Select an Employee Type --";
         o.value = "";
-        o.selected = true;
+
+        // If existing user than don't select the default option.
+        var userId = document.getElementById("UserId");
+        if (userId.value == 0)
+            o.selected = true;
+
         dd.add(o, 0);
+       
     </script>
 
 
