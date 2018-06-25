@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using CoreMvcEvaluation.Core;
+using CoreMvcEvaluation.Models;
 
 namespace CoreMvcEvaluation
 {
@@ -26,6 +28,9 @@ namespace CoreMvcEvaluation
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSingleton<IUserService, UserService>();
+            //services.AddSingleton<TestContext>(new TestContext(new DbContextOptionsBuilder<TestContext>().UseSqlServer(string.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFileName={0}\MVCCoreEval.mdf;Integrated Security=True;Trusted_Connection=True;", AppDomain.CurrentDomain.GetData("ContentRootPath") + @"\App_Data")).Options));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

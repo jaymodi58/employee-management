@@ -9,13 +9,19 @@ using System.Web;
 using Microsoft.AspNetCore;
 using CoreMvcEvaluation.Models;
 using CoreMvcEvaluation.ViewModels;
+using CoreMvcEvaluation.Core;
 
 namespace CoreMvcEvaluation.Controllers
 {
     public class UsersController : Controller
     {
+        private readonly IUserService _userService;
         private TestContext db = new TestContext(new DbContextOptionsBuilder<Models.TestContext>().UseSqlServer(string.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFileName={0}\MVCCoreEval.mdf;Integrated Security=True;Trusted_Connection=True;", AppDomain.CurrentDomain.GetData("ContentRootPath") + @"\App_Data")).Options);
-        private UserService svcUser = new UserService();
+
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         // GET: Users
         public ActionResult Index()
@@ -31,7 +37,7 @@ namespace CoreMvcEvaluation.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest);
             }
             //User user = db.Users.Find(id);
-            User user = svcUser.getUser((int)id);
+            User user = _userService.getUser((int)id);
             if (user == null)
             {
                 return StatusCode((int)HttpStatusCode.NotFound);
@@ -48,8 +54,6 @@ namespace CoreMvcEvaluation.Controllers
             return View(vm);
         }
 
-
-
         // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -62,7 +66,7 @@ namespace CoreMvcEvaluation.Controllers
                 return View("Create", vm);
 
             // Checking the input email whether it exists with other account or not
-            if (svcUser.emailExists(vm.Id, vm.Email))
+            if (_userService.emailExists(vm.Id, vm.Email))
             {
                 ModelState["Email"].Errors.Add("A user with this email address already exists");
                 return View(vm);
@@ -99,7 +103,7 @@ namespace CoreMvcEvaluation.Controllers
                 return StatusCode((int)HttpStatusCode.BadRequest);
             }
             //User user = svcUser.getUser((int)id);
-            User user = svcUser.getUser((int)id);
+            User user = _userService.getUser((int)id);
             if (user == null)
             {
                 return StatusCode((int)HttpStatusCode.NotFound);

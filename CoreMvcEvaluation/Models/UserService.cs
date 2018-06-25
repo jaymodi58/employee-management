@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreMvcEvaluation.Core;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreMvcEvaluation.Models
 {
-    public class UserService
+    public class UserService: IUserService
     {
         private DbContextOptions<TestContext> options { get; set; }
 

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreMvcEvaluation", "CoreMvcEvaluation\CoreMvcEvaluation.csproj", "{9C2AB747-9866-4788-9DD1-1908099786B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreMvcEvaluation", "CoreMvcEvaluation\CoreMvcEvaluation.csproj", "{9C2AB747-9866-4788-9DD1-1908099786B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreMvcEvaluation.Tests", "CoreMvcEvaluation.Tests\CoreMvcEvaluation.Tests.csproj", "{C49EA483-A8BF-4C20-ABD7-FA6FA0AC142F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9C2AB747-9866-4788-9DD1-1908099786B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C2AB747-9866-4788-9DD1-1908099786B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C2AB747-9866-4788-9DD1-1908099786B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C49EA483-A8BF-4C20-ABD7-FA6FA0AC142F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C49EA483-A8BF-4C20-ABD7-FA6FA0AC142F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C49EA483-A8BF-4C20-ABD7-FA6FA0AC142F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C49EA483-A8BF-4C20-ABD7-FA6FA0AC142F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
